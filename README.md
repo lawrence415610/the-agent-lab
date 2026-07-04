@@ -15,6 +15,17 @@ Agent通过LLM来管理workflow的执行，此外Agent可以动态地根据工�
 
 而Agent智能体就是能够稳定帮你实现这样一个工作流的东西。软件实现了自动化，我们把很多流程变成了产品APP里面的界面和步骤，但我们依然需要在关键的地方填写表格，做个人偏好的决定等等。智能体就是根据我们给它的上下文和记忆，替代我们独立去完成这个事的代理。
 
+2. Agent可以帮助我们实现什么样的需求？
+Agent可以帮助我们实现的需求往往具有三大特点：
+a. 需要做复杂的决定 - 大量需要判断，处理异常，理解上下文语境的决定。
+b. 难维护的规则 - 规则太多导致的更新会造成大量错误
+c. 大量的不规则的数据 - 比如从用户对话中获取信息
+这些需求是在传统的自动化程序工具的基础上为
+
+3. 什么是MCP？
+> Model Context Protocol (MCP) is an open-source standard created by Anthropic that allows AI models (like Claude or ChatGPT) to securely connect to external data sources, applications, and tools.
+
+MCP是一个开源协议，它诞生的主要目的就是让LLM以标准的方式去调用工具和数据，这样一来就像大脑连上了手。
 
 
 
