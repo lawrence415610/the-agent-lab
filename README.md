@@ -25,7 +25,46 @@ c. 大量的不规则的数据 - 比如从用户对话中获取信息
 3. 什么是MCP？
 > Model Context Protocol (MCP) is an open-source standard created by Anthropic that allows AI models (like Claude or ChatGPT) to securely connect to external data sources, applications, and tools.
 
-MCP是一个开源协议，它诞生的主要目的就是让LLM以标准的方式去调用工具和数据，这样一来就像大脑连上了手。
+MCP是一个开源协议，它诞生的主要目的就是让LLM以标准的方式去调用工具和数据，这样一来就像大脑连上了手。这里有一个简单伪·MCP实现：要求LLM输出一个json格式的数据，再用python来根据这个json调用工具：
+
+```json
+{
+  "tool": "create_markdown_file",
+  "arguments": {
+    "filename": "mcp实验.md",
+    "content": "这就是mcp的原理"
+  }
+}
+```
+
+```python
+import json
+from pathlib import Path
 
 
+def create_markdown_file(filename: str, content: str) -> None:
+    path = Path(filename)
+    path.write_text(content, encoding="utf-8")
+    print(f"Created file: {path.resolve()}")
 
+
+def main() -> None:
+    with open("action.json", "r", encoding="utf-8") as f:
+        action = json.load(f)
+
+    if action.get("tool") != "create_markdown_file":
+        raise ValueError("Unsupported tool")
+
+    args = action.get("arguments", {})
+    create_markdown_file(
+        filename=args["filename"],
+        content=args["content"]
+    )
+
+
+if __name__ == "__main__":
+    main()
+```
+
+其实就这么简单，LLM负责输出一个json，然后用脚本根据这个json去实现功能。
+如此一来LLM具备了调用工具的能力。
