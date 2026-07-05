@@ -99,6 +99,9 @@ Key takeaway是这样一段代码：
   ];
   ```
 本质上，在实现这个chatbot的过程中，所做的事情无非就是把：
-1. 系统prompt，在这里叫instruction；2. knowledge base，即总结的信息，变成字符串加到instruction后面；3. 历史对话
+1. 系统prompt，在这里叫instruction；
+2. knowledge base，即总结的信息，变成字符串加到instruction后面；
+3. 历史对话
+
 结果就是这些东西都被当做LLM的context使用，因此也就实现了Agent的记忆功能。
 这里我想到一个新的问题，就是知识库，因为这是一个很小的产品，知识库的内容不多，但是如果是一个需要很大知识库的产品呢？知识库应该如何去构建，又怎样合适地提取相关的知识库，这肯定是个问题。
