@@ -1,5 +1,5 @@
-# 从零开始自学Agent智能体
-通过提问和一系列小实验来学习Agent
+# 从初级程序员开始自学Agent智能体
+初级程序员通过提问和一系列小实验来学习Agent，通过一些小实验来了解Agent，探索制作Agent product的方法。
 
 ## Day 1
 1. 什么是Agent？Agent和LLM有什么不同？
@@ -71,3 +71,34 @@ if __name__ == "__main__":
 
 其实就这么简单，LLM负责输出一个json，然后用脚本根据这个json去实现功能。
 如此一来LLM具备了调用工具的能力。
+
+## Day 2
+
+💡 实现一个个人简历网站，这个网站可以通过读取个人的知识库来作为”私人秘书“，对来访者做出基于作者本人的回答。
+实现的效果： <a href="https://zhe-tau.vercel.app/">个人简历助手网站</a>
+
+Key takeaway是这样一段代码：
+``` typescript
+  const input = [
+    {
+      role: "developer",
+      content: `${instructions}\n\nKnowledge base:\n${buildKnowledgeContext()}`
+    },
+    ...(history
+      ? [
+          {
+            role: "developer",
+            content: `Recent conversation:\n${history}`
+          }
+        ]
+      : []),
+    {
+      role: "user",
+      content: question
+    }
+  ];
+  ```
+本质上，在实现这个chatbot的过程中，所做的事情无非就是把：
+1. 系统prompt，在这里叫instruction；2. knowledge base，即总结的信息，变成字符串加到instruction后面；3. 历史对话
+结果就是这些东西都被当做LLM的context使用，因此也就实现了Agent的记忆功能。
+这里我想到一个新的问题，就是知识库，因为这是一个很小的产品，知识库的内容不多，但是如果是一个需要很大知识库的产品呢？知识库应该如何去构建，又怎样合适地提取相关的知识库，这肯定是个问题。
